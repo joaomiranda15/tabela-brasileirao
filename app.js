@@ -33,4 +33,17 @@ app.put('/:sigla', (req, resp) => {
     resp.status(200).send(timeSelecionado);
 });
 
+app.post('/', (req, resp) => {
+    const novoTime = Object.keys(req.body);
+    tabela2026.push(novoTime);
+    resp.status(200).send(novoTime);
+});
+
+app.delete('/:sigla', (req,resp) => {
+    const siglaInformada = requisicao.params.sigla.toUpperCase();
+    const timeSelecionado = tabela2026.find(t => t.sigla == siglaInformada);
+    const indiceTimeSelecionado = tabela2026.findIndex(t => t.sigla == siglaInformada);
+    tabela2026.splice(indiceTimeSelecionado, 1);
+});
+
 app.listen(300, () => console.log("Servidor rodando na porta 300"));
